@@ -1,0 +1,47 @@
+def cost_ground_shipping(weight):
+  if weight < 2.0:
+    cost = weight * 1.50
+    return cost + 20
+  elif weight <= 6.0:
+    cost = weight * 3.00
+    return cost + 20
+  elif weight <= 10.0:
+    cost = weight * 4.00
+    return cost + 20
+  elif weight > 10.0:
+    cost = weight * 4.75
+    return cost + 20
+  
+print(cost_ground_shipping(8.4))
+
+premium_ground_shipping = 125
+
+def cost_drone_shipping(weight):
+  if weight < 2.0:
+    cost = weight * 4.50
+    return cost
+  elif weight <= 6.0:
+    cost = weight * 9.00
+    return cost
+  elif weight <= 10.0:
+    cost = weight * 12.00
+    return cost
+  elif weight > 10.0:
+    cost = weight * 14.25
+    return cost
+  
+print(cost_drone_shipping(1.5))
+
+def cheaper_shipping(weight):
+  ground = cost_ground_shipping(weight)
+  drone = cost_drone_shipping(weight)
+  premium = premium_ground_shipping
+  if ground < drone and ground < premium:
+    return "Ground is cheapest, it will cost ${}".format(ground)
+  elif drone < ground and drone < premium:
+    return "Drone is cheapest, it will cost ${}".format(drone)
+  elif premium < ground and premium < drone:
+    return "Premium is cheapest, it will cost $125"
+  else:
+    return "Tie between one or more methods."
+  
