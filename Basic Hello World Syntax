@@ -1,0 +1,2 @@
+Script = "Hello, World!"
+print(Script)
