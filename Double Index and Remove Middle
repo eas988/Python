@@ -6,3 +6,9 @@ def double_index(lst, index):
     new_lst.append(lst[index]*2)
     new_lst = new_lst + lst[index+1:]
     return new_lst
+
+def remove_middle(lst, start, end):
+  first = lst[:start]
+  last = lst[end+1:]
+  new_lst = first + last
+  return new_lst
