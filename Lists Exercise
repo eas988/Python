@@ -1,0 +1,66 @@
+#doubling the value of an item within an array based on index position
+def double_index(lst, index):
+  if index >= len(lst):
+    return lst
+  else:
+    new_lst = lst[0:index]
+    new_lst.append(lst[index]*2)
+    new_lst = new_lst + lst[index+1:]
+    return new_lst
+
+#removing the middle of a list
+def remove_middle(lst, start, end):
+  first = lst[:start]
+  last = lst[end+1:]
+  new_lst = first + last
+  return new_lst
+
+#identifying if an item in a list occurs more often than a given number
+def more_than_n(lst, item, n):
+  if lst.count(item) > n:
+    return True
+  else:
+    return False
+
+#identifying which of two items in a list occurs more often
+def more_frequent_item(lst, item1, item2):
+  if lst.count(item1) >= lst.count(item2):
+    return item1
+  else:
+    return item2
+
+#identifying the middle element in a list (or returning the average of the middle two items in an evenly numbered list
+def middle_element(lst):
+  if len(lst) % 2 != 0:
+    return lst[int(len(lst)/2)]
+  else:
+    return ((lst[int(len(lst)/2)] + lst[int((len(lst)/2)-1)])/2)
+    
+#Function adds the last two elements of a list together and then appends it to the list; do this three times then return lst
+def append_sum(lst):
+  lst.append(lst[-1]+lst[-2])
+  lst.append(lst[-1]+lst[-2])
+  lst.append(lst[-1]+lst[-2])
+  return lst
+  
+#Function returns the last index item from the list of the larger one, unless they are the same length in which case it returns lst1's value
+def larger_list(lst1, lst2):
+  if len(lst2) > len(lst1):
+    return lst2[-1]
+  else:
+    return lst1[-1]
+    
+#function combines two lists, sorts them, then returns the newly sorted list
+def combine_sort(lst1, lst2):
+  new_lst = lst1 + lst2
+  new_lst.sort()
+  return new_lst
+
+#function takes a list, identifies the length, then adds that value to the list itself via append
+def append_size(lst):
+  lst.append(len(lst))
+  return lst
+  
+#returns a list of values beginning from start value up to (and including) 100 that counts up by three
+def every_three_nums(start):
+  return list(range(start, 101, 3))
