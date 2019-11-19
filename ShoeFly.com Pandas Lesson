@@ -1,0 +1,12 @@
+import codecademylib
+import pandas as pd
+#Load CSV
+orders = pd.read_csv('shoefly.csv')
+#Inspect first five lines of data
+print(orders.head())
+#Select all email addresses from column 'email' and save them to a variable called emails
+emails = orders['email']
+#Select Francis Palnmer's row of orders, save to variable
+frances_palmer = orders[(orders.first_name == 'Frances') & (orders.last_name == 'Palmer')]
+#Select all orders for shoe_type: clogs, boots, and ballet flats; save them to variable comfy_shoes
+comfy_shoes = orders[(orders.shoe_type.isin(['clogs', 'boots', 'ballet flats']))]
