@@ -3,10 +3,16 @@ import random
 money = 100
 
 def cho_han(call, wager):
+  if call != "Even" and call != "Odd":
+    return "Input either 'Even' or 'Odd'"
   global money
+  if wager > money:
+    return "You don't have enough to make that bet!"
+  if wager <= 0:
+    return "You have to bet a tangible amount of money!"
+  x = money
   num1 = random.randint(1, 6)
   num2 = random.randint(1, 6)
-  x = money
   if (num1 + num2) % 2 == 0 and call == "Even":
     x += wager
     print("You called Even and the roll was Even - You win!")
@@ -17,12 +23,8 @@ def cho_han(call, wager):
     x += (wager)*-1
     print("You called Even and the roll was Odd - You lose!")
   elif (num1 + num2) % 2 == 1 and call == "Odd":
-    x += (wager)
+    x += wager
     print("You called Odd and the roll was Odd - You win!")
   print(x - money)
   money = x
   return "You currently have ${}.".format(money)
-  
-
-#Call your game of chance functions here
-print(cho_han("Odd", 10))
