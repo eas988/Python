@@ -4,11 +4,16 @@ import random
 
 money = 100
 
-#Write your game of chance functions here
 def coin_flip(call, wager):
-  global money
-  num = random.randint(1, 2)
+  if call != "Heads" and call != "Tails":
+    return "Input either 'Heads' or 'Tails'"
+  global money  
+  if wager > money:
+    return "You don't have enough to make that bet!"
+  if wager <= 0:
+    return "You have to bet a tangible amount of money!"
   x = money
+  num = random.randint(1, 2)
   if num % 2 == 1 and call == "Heads":
     x += wager
     print("You chose Heads and the flip landed on Heads - You win!")
@@ -24,8 +29,3 @@ def coin_flip(call, wager):
   print(x - money)
   money = x
   return "You currently have ${}.".format(money)
-  
-#Call your game of chance functions here
-print(coin_flip("Heads", 10))
-
-print(coin_flip("Tails", 50))
