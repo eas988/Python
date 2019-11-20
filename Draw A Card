@@ -1,0 +1,38 @@
+#Draw a card game
+import random
+
+money = 100
+
+def draw_card(wager):
+  global money
+  if wager > money:
+    return "You don't have enough to make that bet!"
+  if wager <= 0:
+    return "You have to bet a tangible amount of money!"
+  x = money
+  Pull1 = random.randint(0, 12)
+  Pull2 = random.randint(0, 12)
+  Spades = ["{} of Spades".format(num+1) for num in list(range(0, 13))]
+  Hearts = ["{} of Hearts".format(num+1) for num in list(range(0, 13))]
+  Clubs = ["{} of Clubs".format(num+1) for num in list(range(0, 13))]
+  Diamonds = ["{} of Diamonds".format(num+1) for num in list(range(0, 13))]
+  Cards = [list(card) for card in (zip(Spades, Hearts, Clubs,  Diamonds))]
+  PlayerDraw = Cards[Pull1].pop(random.randrange(len(Cards[Pull1])))
+  ComputerDraw = Cards[Pull2].pop(random.randrange(len(Cards[Pull2])))
+  PlayerCard = [int(s) for s in str.split(PlayerDraw) if s.isdigit()]
+  ComputerCard = [int(s) for s in str.split(ComputerDraw) if s.isdigit()]
+  if PlayerCard > ComputerCard:
+    x += wager
+    print("You drew the {} and the computer drew the {}...".format(PlayerDraw, ComputerDraw))
+    print("You win $"+str(x-money)+"!")
+  elif PlayerCard < ComputerCard:
+    x += (wager)*-1
+    print("You drew the {} and the computer drew the {}...".format(PlayerDraw, ComputerDraw))
+    print("You lose $"+str((x-money)*-1)+"!")
+  elif PlayerCard == ComputerCard:
+    print("You drew the {} and the computer drew the {}...".format(PlayerDraw, ComputerDraw))
+    print("It's a tie!")
+  else:
+    print(PlayerDraw, ComputerDraw, "Something went wrong")
+  money = x
+  return "You currently have ${}.".format(money)
