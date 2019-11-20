@@ -1,0 +1,31 @@
+#Coin Flip Game, function accepts a call (guess of heads or tails) and a wager of money. Function returns a message of win/lose, 
+#the amount gained/lost, and the current amount of money the player has
+import random
+
+money = 100
+
+#Write your game of chance functions here
+def coin_flip(call, wager):
+  global money
+  num = random.randint(1, 2)
+  x = money
+  if num % 2 == 1 and call == "Heads":
+    x += wager
+    print("You chose Heads and the flip landed on Heads - You win!")
+  elif num % 2 == 1 and call == "Tails":
+    x += (wager)*-1
+    print("You chose Tails and the flip landed on Heads - You lose!")
+  elif num % 2 == 0 and call == "Heads":
+    x += (wager)*-1
+    print("You chose Heads and the flip landed on Tails - You lose!")
+  elif num % 2 == 0 and call == "Tails":
+    x += wager
+    print("You chose Tails and the flip landed on Tails - You win!")
+  print(x - money)
+  money = x
+  return "You currently have ${}.".format(money)
+  
+#Call your game of chance functions here
+print(coin_flip("Heads", 10))
+
+print(coin_flip("Tails", 50))
