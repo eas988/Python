@@ -13,3 +13,55 @@ print(sales_vs_targets)
 crushing_it = sales_vs_targets[sales_vs_targets['revenue'] > sales_vs_targets['target']]
 
 print(crushing_it)
+
+#Syntax for merging multiple tables
+import codecademylib
+import pandas as pd
+
+sales = pd.read_csv('sales.csv')
+print(sales)
+targets = pd.read_csv('targets.csv')
+print(targets)
+
+men_women = pd.read_csv('men_women_sales.csv')
+
+all_data = sales.merge(targets).merge(men_women)
+print(all_data)
+
+#syntax for getting new dataframe with multiple criteria
+results = all_data[(all_data.revenue > all_data.target) & (all_data.women > all_data.men)]
+
+import codecademylib
+import pandas as pd
+
+orders = pd.read_csv('orders.csv')
+print(orders)
+products = pd.read_csv('products.csv')
+print(products)
+#renaming multiple fields during a merge - useful for renaming columns that contain different info but have the same name between tables,
+#such as an ID
+orders_products = pd.merge(orders.rename(columns={'id': 'order_id'}), products.rename(columns={'id': 'product_id'}))
+
+print(orders_products)
+
+import codecademylib
+import pandas as pd
+
+orders = pd.read_csv('orders.csv')
+print(orders)
+products = pd.read_csv('products.csv')
+print(products)
+#syntax for merging and renaming multiple fields using left_on, right_on, and suffixes keywords
+orders_products = pd.merge(orders, 
+                           products, 
+                           left_on='product_id', 
+                           right_on='id', 
+                           suffixes=['_orders', '_products']
+                          )
+#mismatched items merged will drop mismatched entries via inner merges. this can be avoided using the following syntax:
+#outer will include all items and anything missing from either side will contain a None or nan
+pd.merge(df_a, df_b, how='outer')
+#left will include all left items and anything not there on the right will contain a None/nan
+pd.merge(df_a, df_b, how='left')
+#right will include all right items and anything not there on the right will contain a None/nan
+pd.merge(df_a, df_b, how='right')
