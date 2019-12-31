@@ -1,0 +1,100 @@
+def multiply(x, y):
+    i = 0
+    for a in range(0, abs(y)):
+        if y < 0:
+            i -= x
+        else:
+            i += x
+    return i
+
+
+#print(multiply(-10, 10))
+
+
+def recursive_multiply(x, y):
+    print(y)
+    if y == 0:
+        return 0
+    else:
+        if y < 0:
+            return -x + recursive_multiply(x, y + 1)
+        else:
+            return x + recursive_multiply(x, y - 1)
+
+
+#print(recursive_multiply(10, 100))
+
+
+def reverse_string(string):
+  i = []
+  for char in string:
+    i.insert(0, char)
+  return "".join(i)
+
+#print(reverse_string("cat"))
+#print("cat")
+
+def reverse_string2(string):
+  i = []
+  x = 1
+  for char in string:
+    i.append(string[-x])
+    x += 1
+  return "".join(i)
+
+#print(reverse_string2("cat"))
+#print("cat")
+
+#print("string"[:-1])
+
+def reverse_recurse(word):
+  if len(word) == 0:
+    return ""
+  else:
+    return word[-1] + reverse_recurse(word[:-1])
+
+#print(reverse_recurse("alligator"))
+
+def split(word): 
+    return [char for char in word]  
+
+s = ' banana '
+#print(f'List of Characters ={list(s.strip())}')
+
+#count from 1 - 100, if number is divisible by 3, return "Fizz"; if divisible by 5, return "Buzz"; if both then "Fizzbuzz"; if none, return number
+def fizzbuzz(x, y):
+  for num in range(x, y+1):
+    if num % 15 == 0:
+      print("Fizzbuzz")
+    elif num % 5 == 0:
+      print("Buzz")
+    elif num % 3 == 0:
+      print("Fizz")
+    else:
+      print(num)
+
+#fizzbuzz(35, 45)
+
+def palindrome(word):
+  return word == reverse_string2(word)
+
+#print(palindrome(""))
+
+import math
+
+def palindrome2(word):
+  for i in range(1, math.ceil(len(word)/2)):
+    if word[i-1] != word[-i]:
+      return False
+  return True
+
+#print(palindrome2("Dogeeseseegod"))
+
+def recursive_pal(word):
+  print("running")
+  if len(word) <= 1:
+    return True
+  else:
+    return word[0] == word[-1] and recursive_pal(word[1:-1])
+
+print(recursive_pal(""))
