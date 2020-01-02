@@ -1,0 +1,43 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+prefix = "https://s3.amazonaws.com/codecademy-content/courses/beautifulsoup/"
+webpage_response = requests.get('https://s3.amazonaws.com/codecademy-content/courses/beautifulsoup/shellter.html')
+
+webpage = webpage_response.content
+soup = BeautifulSoup(webpage, "html.parser")
+
+turtle_links = soup.find_all("a")
+links = []
+#go through all of the a tags and get the links associated with them"
+for a in turtle_links:
+    links.append(prefix+a["href"])
+    
+#Define turtle_data:
+turtle_data = {}
+
+#follow each link:
+for link in links:
+  webpage = requests.get(link)
+  turtle = BeautifulSoup(webpage.content, "html.parser")
+  turtle_name = turtle.select(".name")[0].get_text()
+  
+  stats = turtle.find("ul")
+  stats_text = stats.get_text("|")
+  turtle_data[turtle_name] = stats_text.split("|")
+
+turtle_df = pd.DataFrame.from_dict(turtle_data, orient='index')  
+pd.set_option('display.max_columns', None)
+#print(turtle_df)
+new_turtle_df = turtle_df[[1, 3, 5, 7, 9]].copy()
+#print(new_turtle_df)
+renamed_columns_df = new_turtle_df.rename(columns={1:'Age (years)', 3:'Weight (lbs)', 5:'Sex', 7:'Breed', 9:'Source'})
+#print(renamed_columns_df)
+renamed_columns_df['Age (years)'] = pd.to_numeric(renamed_columns_df['Age (years)'].str.split('(\d+)', expand=True)[1])
+renamed_columns_df['Weight (lbs)'] = pd.to_numeric(renamed_columns_df['Weight (lbs)'].str.split('(\d+)', expand=True)[1])
+renamed_columns_df['Sex'] = renamed_columns_df['Sex'].replace('SEX: ', '', regex=True)
+renamed_columns_df['Breed'] = renamed_columns_df['Breed'].replace('BREED: ', '', regex=True)
+renamed_columns_df['Source'] = renamed_columns_df['Source'].replace('SOURCE: ', '', regex=True)
+clean_turtles = renamed_columns_df
+print(clean_turtles)
